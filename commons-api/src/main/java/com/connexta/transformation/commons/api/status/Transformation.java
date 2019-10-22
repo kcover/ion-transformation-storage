@@ -76,6 +76,7 @@ public interface Transformation extends TransformationStatus {
 
   @Override
   default boolean isUnknown() {
-    return isCompleted() && metadatas().anyMatch(MetadataTransformation::isUnknown);
+    return metadatas().anyMatch(MetadataTransformation::isUnknown)
+        && metadatas().noneMatch(metadataTransformation -> getState() == State.IN_PROGRESS);
   }
 }
